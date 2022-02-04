@@ -41,13 +41,4 @@ module.exports.places = [
     'Hunting Camp',
     'Cliffs',
     'Hollow'
-],
-
-module.exports.duration = [
-    'month',
-    'week',
-    'day',
-    'hour',
-    'year',
-    'minute'
 ]
