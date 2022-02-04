@@ -1,10 +1,11 @@
 const express = require('express')
 const app = express()
 const path = require('path')
+const ejsMate = require('ejs-mate')
 const mongoose = require('mongoose')
 const Campground = require('./models/campground')
 const methodOverride = require('method-override')
-const { findByIdAndDelete, findById } = require('./models/campground')
+const morgan = require('morgan')
 
 mongoose.connect('mongodb://localhost:27017/yelp-camp', {
     useNewUrlParser: true,
@@ -17,12 +18,14 @@ db.once('open', () => {
     console.log('Database Connected')
 })
 
+app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 
+// app.use(morgan('tiny'))
+app.use(morgan('dev')) //colorised codes
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
-
 
 app.get('/campgrounds', async (req, res) => {
     const camps = await Campground.find({})
